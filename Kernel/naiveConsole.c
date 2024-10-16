@@ -1,4 +1,4 @@
-#include <naiveConsole.h>
+#include "include/naiveConsole.h"
 
 static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
 
@@ -14,6 +14,19 @@ void ncPrint(const char * string)
 
 	for (i = 0; string[i] != 0; i++)
 		ncPrintChar(string[i]);
+}
+
+void ncPrintColour(const char * string, uint8_t textColour, uint8_t bgColour)
+{
+    int i;
+    uint8_t attribute = (bgColour << 4) | (textColour & 0x0F);
+
+    for (i = 0; string[i] != 0; i++)
+    {
+        *currentVideo = string[i];
+        *(currentVideo + 1) = attribute;
+        currentVideo += 2;
+    }
 }
 
 void ncPrintChar(char character)
@@ -93,3 +106,4 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
 
 	return digits;
 }
+
