@@ -3,7 +3,7 @@ GLOBAL getTime
 GLOBAL getSeconds
 GLOBAL getMinutes
 GLOBAL getHours
-GLOBAL waitForKeypress
+GLOBAL getKeyPressed
 
 section .text
 	
@@ -76,3 +76,13 @@ getHours:
 	mov rsp, rbp
 	pop rbp
 	ret
+
+getKeyPressed:
+    mov rax, 0  ; Inicializa el registro RAX a 0
+.cicle: 
+    in al, 64h  ; Lee el estado del teclado en el puerto 0x64
+    and al, 0x01  ; Verifica si el bit 0 (indicador de tecla presionada) está activo
+    je .cicle  ; Si no está activo, vuelve a verificar
+    in al, 60h  ; Si está activo, lee el código de la tecla presionada del puerto 0x60
+
+    ret  ; Retorna el código de la tecla presionada

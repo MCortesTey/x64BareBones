@@ -4,6 +4,8 @@
 #include <moduleLoader.h>
 #include <naiveConsole.h>
 #include <videoDriver.h>
+#include <idtLoader.h>
+#include <keyboard.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -88,6 +90,7 @@ int main(){
 	// 	}
 	// }
 	load_idt();
+	//picMasterMask(0xFC); // Enable timer and keyboard interrupts
 	
 	ncPrint("[Kernel Main]");
 	ncNewline();
@@ -105,6 +108,7 @@ int main(){
 	ncPrint("  Sample data module contents: ");
 	ncPrint((char*)sampleDataModuleAddress);
 	ncNewline();
+	ncClear();
 
 	ncPrintColour("  Arquitectura de Computadoras", 0x2, 0xF);
 	ncNewline();
@@ -115,9 +119,22 @@ int main(){
 	ncPrintHex(getMinutes());
 	ncPrint(":");
 	ncPrintHex(getSeconds());
-	ncNewline();
 
+	ncNewline();
+	ncPrint("Press ESC to exit text mode.");
+	ncNewline();
+	//printKeys sin interrupcion
+	pressKey();
+
+	//printKeys con interrupcion
+	//ncClear();
+
+	
+	//while(1){
+	//	;
+	//}
+
+	ncNewline();
 	ncPrint("[Finished]");
-	while(1);
 	return 0;
 }
