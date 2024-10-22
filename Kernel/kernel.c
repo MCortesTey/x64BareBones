@@ -1,9 +1,9 @@
 #include <stdint.h>
 #include <string.h>
-#include "include/lib.h"
-#include "include/moduleLoader.h"
-#include "include/naiveConsole.h"
-//include <videoDriver.h>
+#include <lib.h>
+#include <moduleLoader.h>
+#include <naiveConsole.h>
+#include <videoDriver.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -82,40 +82,42 @@ void * initializeKernelBinary()
 }
 
 int main(){	
-	for(int i = 0; i < 100; i++){
-		for(int j = 0; j < 100; j++){
-			putPixel(0x00FF0000, i, j);
-		}
-	}
+	// for(int i = 0; i < 100; i++){
+	// 	for(int j = 0; j < 100; j++){
+	// 		putPixel(0x00FF0000, i, j);
+	// 	}
+	// }
+	load_idt();
 	
-	// ncPrint("[Kernel Main]");
-	// ncNewline();
-	// ncPrint("  Sample code module at 0x");
-	// ncPrintHex((uint64_t)sampleCodeModuleAddress);
-	// ncNewline();
-	// ncPrint("  Calling the sample code module returned: ");
-	// ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
-	// ncNewline();
-	// ncNewline();
+	ncPrint("[Kernel Main]");
+	ncNewline();
+	ncPrint("  Sample code module at 0x");
+	ncPrintHex((uint64_t)sampleCodeModuleAddress);
+	ncNewline();
+	ncPrint("  Calling the sample code module returned: ");
+	ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
+	ncNewline();
+	ncNewline();
 
-	// ncPrint("  Sample data module at 0x");
-	// ncPrintHex((uint64_t)sampleDataModuleAddress);
-	// ncNewline();
-	// ncPrint("  Sample data module contents: ");
-	// ncPrint((char*)sampleDataModuleAddress);
-	// ncNewline();
+	ncPrint("  Sample data module at 0x");
+	ncPrintHex((uint64_t)sampleDataModuleAddress);
+	ncNewline();
+	ncPrint("  Sample data module contents: ");
+	ncPrint((char*)sampleDataModuleAddress);
+	ncNewline();
 
-	// ncPrintColour("  Arquitectura de Computadoras", 0x2, 0xF);
-	// ncNewline();
+	ncPrintColour("  Arquitectura de Computadoras", 0x2, 0xF);
+	ncNewline();
 
-	// ncPrint("  Time: ");
-	// ncPrintHex(getHours());
-	// ncPrint(":");
-	// ncPrintHex(getMinutes());
-	// ncPrint(":");
-	// ncPrintHex(getSeconds());
-	// ncNewline();
+	ncPrint("  Time: ");
+	ncPrintHex(getHours());
+	ncPrint(":");
+	ncPrintHex(getMinutes());
+	ncPrint(":");
+	ncPrintHex(getSeconds());
+	ncNewline();
 
-	// ncPrint("[Finished]");
+	ncPrint("[Finished]");
+	while(1);
 	return 0;
 }
